@@ -1,0 +1,173 @@
+*--------------------------------------------------------------------------------------
+* STed2.cnf : STed v2.07 環境設定ファイル				1996-11-17
+*--------------------------------------------------------------------------------------
+
+*	 [ロゴの下に表示するメッセージ(44文字まで)  ]
+#comment=   ------- for X680x0 / RC-System -------
+
+* 機能の設定(ON=する/OFF=しない)
+#enter   =off		* ノート入力時の[RETURN]/[SPACE]の機能を入れ替える
+#spc_sel =off		* スペシャルコントローラの入力にセレクタを使用する
+#rol_hex =off		* Rol.Dev#/Rol.Base/Rol.Paraのパラメータを16進数で扱う
+
+#tonename=on		* プログラムチェンジの表示は音色名で行う
+#tonesel =on		* プログラムチェンジの入力はセレクタで行う
+#tselbank=off		* トーンセレクタでバンクモードを優先する
+
+#fsort   =off		* ファイルセレクタでファイル名をソートして表示する
+#fcheck  =off		* セーブ時にファイルを上書きしてもいいか確認する
+#fbackup =off		* セーブ時に旧ファイルをバックアップとして残す
+#fsel_mov=on		* ロード・セーブ後にパス移動する
+
+#pas_read=off		* ファイル内のパートアサインを読み込む
+
+#mp_mlsp =off		* MEAS PLAY時に他のトラックのラストパラメータを送信する
+#noteoff =off		* 演奏開始前/演奏中止時にオールノートオフを出力する
+#thrumode=off		* EDIT時にMIDI INからの入力をそのままMIDI OUTに出力する
+			* (演奏中は演奏を停止してから送信します。)
+
+#edit_mode=0		* EDIT MODE(0:Normal 1:Sound 2:Mono 3:Poly 4:Step 5:P/St)
+#grap_mode=0		* GRAPHIC DISPLAY MODE(0:off 1:score 2:graph 3:score+graph)
+
+#rhy_trk =check		* リズムアサイン後にトラックデータを書き変える
+			* (on=書き換える/off=書き換えない/check=書き換えを確認する)
+#save_def=rcp		* セーブコマンドのデフォルトでのセーブ形式
+			* (rcp=18track形式でセーブする/r36=36track形式でセーブする)
+
+#prog_min=1		* プログラムナンバーの範囲の設定(0= 0～127 / 1= 1～128)
+#time_lag=8000		* グラフィック表示等の再表示までのタイムラグ(default=8000)
+
+*#deffile =cm64.def	* '-F'無指定時に使用する音源定義ファイル(default=STed2.def)
+*#deffile =sc55.def
+*#deffile =sc55mk2.def
+#deffile =sc88.def
+
+*======================================================================================
+* パレット設定
+
+#palet0 = $0046		* 黒		バックカラー
+#palet1 = $e3b8		* 水		カーソル/スペシャルコントローラ
+#palet2 = $e71c		* 黄		カーソル/コード
+#palet3 = $e738		* 白		カーソル/メッセージ
+#palet4 = $5296		* 淡い灰	枠2
+#palet5 = $210a		* 暗い灰	(未使用)
+#palet6 = $2708		* 赤		RECORD MODE
+#palet7 = $3018		* 暗い青	入力ガイド
+#palet8 = $51a2		* 青		文字表示のバックカラー/グラフカーソル
+#palet9 = $8800		* 暗い緑	エクスプレッション
+#palet10= $f800		* 緑		モジュレーション
+#palet11= $f83e		* 水		リピート記号
+#palet12= $8c40		* 暗い黄	ヴォリューム
+#palet13= $ff9c		* 黄		ピッチベンド
+#palet14= $73a0		* 灰		枠1
+#palet15= $fffe		* 白		ベロシティ
+
+* g:84218 r:42184 b:21842 i:1
+*======================================================================================
+* メインメニューのプレイコマンドで実行するツールの設定
+* (先頭に%を付けると演奏を継続して起動)
+* (先頭に&を付けると演奏を強制的に開始して起動)
+
+*	+shift		+ctrl		+shift+ctrl
+#mplay=1,rcp.x -spb	,rcp.x -skb	,rcp.x -spb	* 演奏して無い時
+#mplay=9,%rcp.x -p	,%rcp.x -p	,&rcp.x -p	* 演奏している時
+
+*#mplay=1,rcdp.x -spb	,rcdp.x -spb	,rcdp.x -spb	* 演奏して無い時
+*#mplay=9,%rcdp.x -p	,%rcdp.x -p	,&rcdp.x -p	* 演奏している時
+
+*#mplay=1,&gsr.x	,&gsr.x		,&gsr.x		* 演奏して無い時
+*#mplay=9,%gsr.x	,%gsr.x		,&gsr.x		* 演奏している時
+
+*======================================================================================
+* リズムエディタの'1'～'9'に割り当てるベロシティ
+
+*	[  1,  2,  3,  4,  5,  6,  7,  8,  9]
+#rhy_vel= 14, 28, 42, 56, 70, 84, 98,112,127
+
+*======================================================================================
+* エディタのワンタッチST/GT or VEL入力時のF1～F10に割り当てる値
+
+#fkey_st=192,144, 96, 72, 48, 36, 24, 18, 12,  6
+#fkey_gt=188,140, 92, 68, 45, 34, 22, 16, 10,  5
+#fkey_ve=  1, 15, 29, 43, 57, 71, 85, 99,113,127
+
+*======================================================================================
+* MIDI KEY IN(Step) KEY# 変換テーブル(KEY#->COMMAND & ST/GT) (Roland PC-200用)
+
+*      KEY, ST, GT
+#keyst=g 4,192,188	*       全音符
+#keyst=a 4,144,140	* 付点２分音符
+#keyst=b 4, 96, 92	*     ２分音符
+#keyst=c 5, 72, 68	* 付点４分音符
+#keyst=d 5, 48, 45	*     ４分音符
+#keyst=e 5, 36, 34	* 付点８分音符
+#keyst=f 5, 24, 22	*     ８分音符
+#keyst=g 5, 18, 16	* 付点16分音符
+#keyst=a 5, 12, 10	*     16分音符
+#keyst=b 5,  9,  8	* 付点32分音符
+#keyst=c 6,  6,  5	*     32分音符
+
+#keyst=f#5,255,  0	* 休符
+#keyst=g#5,255,  1	* 小節線
+#keyst=a#5,255,  2	* １行削除
+
+*======================================================================================
+* Replace/Delete/Find Selecterの設定(A～Z)
+
+*          [コメント(34文字まで)            ]-[parameter(35文字まで)            ]
+#replace=a,１オクターブ上のノートを重ねる    ,%:+12
+
+#delete =a,
+
+#find   =a,Total STが192以外の小節線に移動   ,$ST!=192
+
+*======================================================================================
+* 外部プログラムの設定(A～Z)
+
+*          [コメント(37文字まで)               ]-[ MODE ][コマンド(38文字まで)][拡張子]
+#program=a,使用音色リスト表示 (CM-64)           ,pb	,command.x /c tone.x -b -c|more
+#program=b,使用音色リスト表示 (SC-55)           ,pb	,command.x /c tone.x -b -g|more
+#program=c,歌詞ファイル編集    (ed filename.WRD),f	,ed.x			,WRD
+#program=d,ドキュメント編集    (     〃    .DOC),f	,ed.x			,DOC
+#program=e,ドキュメント編集(select)  (.DOC/.TXT),s	,ed.x			,DOC:TXT
+
+*#program=g,SNG出力 (for Mu-1GS format)    (.SNG),pbf	,tosng.x -b
+*#program=h,MML出力 (for MDD(MDL)format)   (.MDL),pbf	,tomml.x -b -d
+
+#program=j,ﾚｺﾝﾎﾟｰｻﾞ/98 V2.5G file load (G18/G36),pslm	,gtor.x -x		,G18:G36
+#program=k,RCM-PC98 v1 file load          (.MCP),pslm	,mtor.x -x		,MCP
+#program=l,RCM-PC98 v1 control file load  (.MTD),pslm	,mtor.x -x		,MTD
+#program=m,Standard MIDI file load (STD/MID/MFF),pslm	,itor.x -x		,STD:MID:MFF
+#program=n,Music Studio/Mu-1 file load    (.SNG),pslm	,utor.x -x		,SNG
+#program=o,ミュージくん/郎 file load      (.SNG),pslm	,stor.x -x		,SNG
+#program=p,MDD (.MDI) file load           (.MDI),pslm	,dtor.x -x		,MDI
+#program=q,芸達者 file load               (.SEQ),pslm	,qtor.x -x		,SEQ
+#program=r,Micro Musician file load(MMC/MM2/MM3),pslm	,ctor.x -x		,MMC:MM2:MM3
+#program=s,Z-Music file load               (ZMD),pslm	,ztor.x -x		,ZMD
+
+#program=u,LZM ファイル ロード            (.MDF),slm	,lzm -x			,MDF
+#program=v,LZM 圧縮ファイルリスト表示     (.MDF),ps	,lzm -l			,MDF
+#program=w,LZM ファイル展開 (->カレント)  (.MDF),ps	,lzm -e			,MDF
+#program=x,LZM ファイル圧縮 (->カレント)  (.RCP),ps	,lzm -c			,RCP:R36
+
+#program=z,OS(Human68k/command.x)の起動         ,p	,command.x
+
+* MODE = 外部プログラム実行のオプション
+*
+*	P : 実行後にキー入力待ちをする
+*	G : 実行後にグラフィック画面を初期化する
+*	B : 実行前にデータをRCDのバッファに転送する
+*	L : 実行後にRCDのバッファデータを読み込む(CM6/GSDを音源に転送する)
+*	N : 実行後にRCDのバッファデータを読み込む(CM6/GSDを音源に転送しない)
+*	S : 実行時にセレクタで選んだファイルを指定する
+*	F : 実行時に現在のファイル名の拡張子を指定した拡張子に変えて指定する
+*	O : 実行前に演奏を停止する
+*	E : 実行後に演奏を停止する
+*	M : Main Menuから呼び出した時のみ実行する
+
+#end
+
+*--------------------------------------------------------------------------------------
+* STed2.cnf : end of file
+*--------------------------------------------------------------------------------------
+

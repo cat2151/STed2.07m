@@ -1,0 +1,499 @@
+*--------------------------------------------------------------------------------------
+* sc55.def : STed v2.07 音源定義ファイル(Roland SC-55/SC-155対応)	1996-11-17
+*--------------------------------------------------------------------------------------
+
+* 使用する音源の機種名(表示用=module/内部処理用=id)
+*       [ 22文字まで         ]
+#module= MODULE: Roland SC-55
+
+#id=SC55
+*#mute=CM64
+
+* 演奏時のラストパラメータ送信のウエイト
+#lsp_wait=1	* (0～16= wait×0～16 / -1=パラメータを送信しない)
+
+*======================================================================================
+* レコーディングの設定
+
+* メトロノームで使用するノート(click&bell)
+*        ch prg  key gt vel  key gt vel
+#rec_met=10,  0,  33, 2,106,  34, 2,120
+
+*======================================================================================
+* ユーザー定義エクスクルーシブの初期データ(0～7)
+
+* gt : SEND GATE POSITION DATA   cs : CLEAR CHECK SUM
+* ve : SEND VELO POSITION DATA   ss : SEND CHECK SUM
+* ch : SEND CHANNLE No.
+
+	[no][data(24byte) f0h f7h を省いて設定して下さい。 ]-[comment(24byte)       ]
+*#user_exc=0,41 10 42 12 cs 40 00 04 ve ss		    ,GS MASTER VOLUME
+*#user_exc=1,41 10 42 12 cs 40 00 05 ve ss		    ,GS MASTER KEY-SHIFT
+*#user_exc=2,41 10 42 12 cs 40 00 06 ve ss		    ,GS MASTER PAN
+*#user_exc=3,41 10 42 12 cs 40 00 7F 00 ss		    ,GS SYSTEM RESET
+*#user_exc=4,41 10 42 12 cs 40 01 30 ve ss		    ,GS REVERB MACRO
+*#user_exc=5,41 10 42 12 cs 40 01 38 ve ss		    ,GS CHORUS MACRO
+*#user_exc=6,41 10 42 12 cs 40 00 00 00 04 05 ve ss	    ,GS MASTER TUNE = 442.0
+*#user_exc=7,41104212400110 04030402030303020000000000000000 17,GS VOICE RESERVE
+*#user_exc=7,41104212400110 02060202020202020202000000000000 17,GS VOICE RESERVE
+
+*======================================================================================
+* 音色リストの割り当て(0=NoUse/1～15=part1～part15)
+
+* チャンネル毎の音色リストの割り当て
+#group_a=7,7,7,7,7,7,7,7,7,8,7,7,7,7,7,7	* (ch.A1-16) GS format用
+#group_b=7,7,7,7,7,7,7,7,7,8,7,7,7,7,7,7	* (ch.B1-16) GS format用
+
+#gs_mode=3	* bit 0 = キャピタル落ち 0:off 1:on
+		* bit 1 = rhythm   〃	 0:off 1:on
+		* bit 2 = bank mode	 0:bank msb 1:bank lsb
+
+#gs_pbank	* GS/GMパート(part7)のバンクアサイン
+16,17,18,19,20,21,22,23,24,25,0 ,0 ,0 ,0 ,0 ,0
+26,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,27,28
+#defoff
+
+#gs_rbank	* GS/GMリズムパート(part8)のバンクアサイン
+32,0 ,0 ,0 ,0 ,0 ,0 ,0 ,33,0 ,0 ,0 ,0 ,0 ,0 ,0
+34,0 ,0 ,0 ,0 ,0 ,0 ,0 ,35,36,0 ,0 ,0 ,0 ,0 ,0
+37,0 ,0 ,0 ,0 ,0 ,0 ,0 ,38,0 ,0 ,0 ,0 ,0 ,0 ,0
+39,0 ,0 ,0 ,0 ,0 ,0 ,0 ,40,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,41
+#defoff
+
+*======================================================================================
+* リズムアサインの初期データ(1～32) (リズムネームは14文字まで)
+
+* サウンドテスト用の設定
+#rhy_as=10,0,-1,,127	* ch.(1～16),prog.(0～127,-1=off),bank_l(0～127,-1=off),,vel
+*--------------------------------------------------------------------------------------
+*[RHYTHM NAME][KEY,GT][RHYTHM NAME]-[KEY,GT][RHYTHM NAME]-[KEY,GT][RHYTHM NAME]-[KEY,GT]
+Hand Clap     , 39, 1,Mt HiConga    , 62, 1,High Conga    , 63, 1,Low Conga     , 64, 1
+Crash Cym     , 49, 1,Ride Cym      , 51, 1,OpenHiHat2    , 44, 1,OpenHiHat1    , 46, 1
+Clsd HiHat    , 42, 1,Acou HiTom    , 48, 1,AcouMidTom    , 45, 1,AcouLowTom    , 41, 1
+Rim Shot      , 37, 1,Elec SD       , 40, 1,Acou SD       , 38, 1,Acou BD       , 36, 1
+Hi Timbale    , 65, 1,LowTimbale    , 66, 1,Cowbell       , 56, 1,High Bongo    , 60, 1
+Low Bongo     , 61, 1,High Agogo    , 67, 1,Low Agogo     , 68, 1,Tambourine    , 54, 1
+Claves        , 75, 1,Maracas       , 70, 1,SmbaWhis L    , 72, 1,SmbaWhis S    , 71, 1
+Cabasa        , 69, 1,Quijada       , 73, 1,              ,  0, 1,              ,  0, 1
+*--------------------------------------------------------------------------------------
+#defoff
+
+*======================================================================================
+* 音色名定義(part1～400) (音色名は12文字まで)
+
+* [No.]-[Title(16byte) ][header][offset]
+#part=7,Roland GS format,   GS:		* GS formatの音色リスト(bank0～127/prog.0～127)
+*--------------------------------------------------------------------------------------
+* Roland GS format sound list for SC-55			* 1991-11-13 by TURBO
+*							* 1991-12-21 by Ext
+*							* 1992-01-21 by K.YONEZAWA
+*							* 1992-04-06 by ガムオ
+*							* 1994-05-18 by TURBO
+*							* 1994-07-26 by TURBO
+
+#part=16,    CAPITAL    ,   GS:
+*--------------------------------------------------
+Piano 1     ,Piano 2     ,Piano 3     ,Honky-tonk
+E.Piano 1   ,E.Piano 2   ,Harpsichord ,Clav.
+Celesta     ,Glockenspiel,Music Box   ,Vibraphone
+Marimba     ,Xylophone   ,Tubular-bell,Santur
+Organ 1     ,Organ 2     ,Organ 3     ,Church Org.1
+Reed Organ  ,Accordion Fr,Harmonica   ,Bandneon
+Nylon-str.Gt,Steel-str.Gt,Jazz Gt.    ,Clean Gt.
+Muted Gt.   ,Overdrive Gt,DistortionGt,Gt.Harmonics
+Acoustic Bs.,Fingered Bs.,Picked Bs.  ,Fretless Bs.
+Slap Bass 1 ,Slap Bass 2 ,Synth Bass 1,Synth Bass 2
+Violin      ,Viola       ,Cello       ,Contrabass
+Tremolo Str ,PizzicatoStr,Harp        ,Timpani
+Strings     ,Slow Strings,Syn.Strings1,Syn.Strings2
+Choir Aahs  ,Voice Oohs  ,SynVox      ,OrchestraHit
+Trumpet     ,Trombone    ,Tuba        ,MutedTrumpet
+French Horn ,Brass 1     ,Synth Brass1,Synth Brass2
+Soprano Sax ,Alto Sax    ,Tenor Sax   ,Baritone Sax
+Oboe        ,English Horn,Bassoon     ,Clarinet
+Piccolo     ,Flute       ,Recorder    ,Pan Flute
+Bottle Blow ,Shakuhachi  ,Whistle     ,Ocarina
+Square Wave ,Saw Wave    ,Syn.Calliope,Chiffer Lead
+Charang     ,Solo Vox    ,5th Saw Wave,Bass & Lead
+Fantasia    ,Warm Pad    ,Polysynth   ,Space Voice
+Bowed Glass ,Metal Pad   ,Halo Pad    ,Sweep Pad
+Ice Rain    ,Soundtrack  ,Crystal     ,Atmosphere
+Brightness  ,Goblin      ,Echo Drops  ,Star Theme
+Sitar       ,Banjo       ,Shamisen    ,Koto
+Kalimba     ,Bag Pipe    ,Fiddle      ,Shanai
+Tinkle Bell ,Agogo       ,Steel Drums ,Woodblock
+Taiko       ,Melo. Tom 1 ,Synth Drum  ,Reverse Cym.
+Gt.FretNoise,Breath Noise,Seashore    ,Bird
+Telephone 1 ,Helicopter  ,Applause    ,Gun Shot
+*--------------------------------------------------
+#defoff
+
+#part=17,  VARIATION 1  ,   GS:,120
+*--------------------------------------------------
+Gt.Cut Noise,Fl.Key Click,Rain        ,Dog
+Telephone 2 ,Car-Engine  ,Laughing    ,Machine Gun
+*--------------------------------------------------
+#defoff
+
+#part=18,  VARIATION 2  ,   GS:,120
+*--------------------------------------------------
+String Slap ,            ,Thunder     ,Horse-Gallop
+DoorCreaking,Car-Stop    ,Screaming   ,Lasergun
+*--------------------------------------------------
+#defoff
+
+#part=19,  VARIATION 3  ,   GS:,122
+*--------------------------------------------------
+Wind        ,            ,Door        ,Car-Pass
+Punch       ,Explosion
+*--------------------------------------------------
+#defoff
+
+#part=20,  VARIATION 4  ,   GS:,122
+*--------------------------------------------------
+Stream      ,            ,Scratch     ,Car-Crash
+Heart Beat
+*--------------------------------------------------
+#defoff
+
+#part=21,  VARIATION 5  ,   GS:,122
+*--------------------------------------------------
+Bubble      ,            ,Windchime   ,Siren
+Footsteps
+*--------------------------------------------------
+#defoff
+
+#part=22,  VARIATION 6  ,   GS:,125
+*--------------------------------------------------
+Train
+*--------------------------------------------------
+#defoff
+
+#part=23,  VARIATION 7  ,   GS:,125
+*--------------------------------------------------
+Jetplane
+*--------------------------------------------------
+#defoff
+
+#part=24,  VARIATION 8  ,   GS:,4
+*--------------------------------------------------
+Detuned EP 1,Detuned EP 2,Coupled Hps.,
+            ,            ,            ,
+            ,            ,Church Bell ,
+Detuned Or.1,Detuned Or.2,            ,Church Org.2
+            ,Accordion It,            ,
+Ukulele     ,12-str.Gt.  ,Hawaiian Gt.,Chorus Gt.
+Funk Gt.    ,            ,Feedback Gt.,Gt. Feedback
+            ,            ,            ,
+            ,            ,Synth Bass 3,Synth Bass 4
+            ,            ,            ,
+            ,            ,            ,
+Orchestra   ,            ,Syn.Strings3,
+            ,            ,            ,
+            ,            ,            ,
+            ,Brass 2     ,Synth Brass3,Synth Brass4
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+Sine Wave   ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,
+            ,            ,            ,Taisho Koto
+            ,            ,            ,
+            ,            ,            ,Castanets
+Concert BD  ,Melo. Tom 2 ,808 Tom     ,
+            ,            ,            ,
+            ,Starship
+*--------------------------------------------------
+#defoff
+
+#part=25,  VARIATION 9  ,   GS:,125
+*--------------------------------------------------
+Burst Noise
+*--------------------------------------------------
+#defoff
+
+#part=26,  VARIATION 16 ,   GS:,25
+*--------------------------------------------------
+Mandolin
+*--------------------------------------------------
+#defoff
+
+*#part=27,   CM-32P Set  ,   GS:
+**--------------------------------------------------
+*A.Piano 1   ,A.Piano 2   ,A.Piano 3   ,A.Piano 4
+*A.Piano 5   ,A.Piano 7   ,A.Piano 9   ,E.Piano 1
+*E.Piano 3   ,E.Piano 5   ,A.Guitar 1  ,A.Guitar 3
+*A.Guitar 4  ,E.Guitar 1  ,E.Guitar 2  ,Slap 3
+*Slap 4      ,Slap 5      ,Slap 6      ,Slap 9
+*Slap 10     ,Slap 11     ,Slap 12     ,Fingered 1
+*Fingered 2  ,Picked 1    ,Picked 2    ,Fretless 1
+*AC.Bass     ,Choir 1     ,Choir 2     ,Choir 3
+*Choir 4     ,Strings 1   ,Strings 2   ,Strings 3
+*Strings 4   ,E.Organ 2   ,E.Organ 4   ,E.Organ 6
+*E.Organ 8   ,E.Organ 9   ,E.Organ 10  ,E.Organ 11
+*E.Organ 12  ,E.Organ 13  ,Soft Tp 1   ,Soft Tp 3
+*Tp/Trb 1    ,Tp/Trb 2    ,Tp/Trb 3    ,Tp/Trb 4
+*Tp/Trb 5    ,Tp/Trb 6    ,Sax 1       ,Sax 2
+*Sax 3       ,Sax 5       ,Brass 1     ,Brass 2
+*Brass 3     ,Brass 4     ,Brass 5     ,Orche Hit
+**--------------------------------------------------
+*#defoff
+
+#part=27,   CM-32P Set  ,   GS:
+*--------------------------------------------------
+Piano 2     ,Piano 2     ,Piano 2     ,Honky-tonk
+Piano 1     ,Piano 2     ,Piano 2     ,E.Piano 1
+Detuned EP 1,E.Piano 2   ,Steel-str.Gt,Steel-str.Gt
+12-str.Gt   ,Funk Gt.    ,Muted Gt.   ,Slap Bass 1
+Slap Bass 1 ,Slap Bass 1 ,Slap Bass 1 ,Slap Bass 2
+Slap Bass 2 ,Slap Bass 2 ,Slap Bass 2 ,Fingered Bs.
+Fingered Bs.,Picked Bs.  ,Picked Bs.  ,Fretless Bs.
+Acoustic Bs.,Choir Aahs  ,Choir Aahs  ,Choir Aahs
+Choir Aahs  ,Slow Strings,Strings     ,SynStrings 3
+SynStrings 3,Organ 1     ,Organ 1     ,Organ 1
+Organ 2     ,Organ 1     ,Organ 1     ,Organ 2
+Organ 2     ,Organ 2     ,Trumpet     ,Trumpet
+Trombone    ,Trombone    ,Trombone    ,Trombone
+Trombone    ,Trombone    ,Alto Sax    ,Tenor Sax
+Baritone Sax,Alto Sax    ,Brass 1     ,Brass 1
+Brass 2     ,Brass 2     ,Brass 1     ,OrchestraHit
+*--------------------------------------------------
+#defoff
+
+#part=28,   MT-32 Set   ,   GS:
+*--------------------------------------------------
+Acou Piano 1,Acou Piano 2,Acou Piano 3,Elec Piano 1
+Elec Piano 2,Elec Piano 3,Elec Piano 4,Honkytonk
+Elec Org 1  ,Elec Org 2  ,Elec Org 3  ,Elec Org 4
+Pipe Org 1  ,Pipe Org 2  ,Pipe Org 3  ,Accordion
+Harpsi 1    ,Harpsi 2    ,Harpsi 3    ,Clavi 1
+Clavi 2     ,Clavi 3     ,Celesta 1   ,Celesta 2
+Syn Brass 1 ,Syn Brass 2 ,Syn Brass 3 ,Syn Brass 4
+Syn Bass 1  ,Syn Bass 2  ,Syn Bass 3  ,Syn Bass 4
+Fantasy     ,Harmo Pan   ,Chorale     ,Glasses
+Soundtrack  ,Atmosphere  ,Warm Bell   ,Funny Vox
+Echo Bell   ,Ice Rain    ,Oboe 2001   ,Echo Pan
+Doctor Solo ,School Daze ,Bellsinger  ,Square Wave
+Str Sect 1  ,Str Sect 2  ,Str Sect 3  ,Pizzicato
+Violin 1    ,Violin 2    ,Cello 1     ,Cello 2
+Contrabass  ,Harp 1      ,Harp 2      ,Guitar 1
+Guitar 2    ,Elec Gtr 1  ,Elec Gtr 2  ,Sitar
+Acou Bass 1 ,Acou Bass 2 ,Elec Bass 1 ,Elec Bass 2
+Slap Bass 1 ,Slap Bass 2 ,Fretless 1  ,Fretless 2
+Flute 1     ,Flute 2     ,Piccolo 1   ,Piccolo 2
+Recorder    ,Pan Pipes   ,Sax 1       ,Sax 2
+Sax 3       ,Sax 4       ,Clarinet 1  ,Clarinet 2
+Oboe        ,Engl Horn   ,Bassoon     ,Harmonica
+Trumpet 1   ,Trumpet 2   ,Trombone 1  ,Trombone 2
+Fr Horn 1   ,Fr Horn 2   ,Tuba        ,Brs Sect 1
+Brs Sect 2  ,Vibe 1      ,Vibe 2      ,Syn Mallet
+Windbell    ,Glock       ,Tube Bell   ,Xylophone
+Marimba     ,Koto        ,Sho         ,Shakuhachi
+Whistle 1   ,Whistle 2   ,Bottleblow  ,Breathpipe
+Timpani     ,Melodic Tom ,Deep Snare  ,Elec Perc 1
+Elec Perc 2 ,Taiko       ,Taiko Rim   ,Cymbal
+Castanets   ,Triangle    ,Orche Hit   ,Telephone
+Bird Tweet  ,One Note Jam,Water Bell  ,Jungle Tune
+*--------------------------------------------------
+#defoff
+
+
+#part=8,Roland GS drums , GSds:		* GS drums のリズムセットリスト(prog.0～127)
+*--------------------------------------------------------------------------------------
+* Roland GS drums sound list for SC-55
+*
+STANDARD  ,          ,          ,          ,          ,          ,          ,
+ROOM      ,          ,          ,          ,          ,          ,          ,
+POWER     ,          ,          ,          ,          ,          ,          ,
+ELECTRONIC,TR-808    ,          ,          ,          ,          ,          ,
+JAZZ      ,          ,          ,          ,          ,          ,          ,
+BRUSH     ,          ,          ,          ,          ,          ,          ,
+ORCHESTRA ,          ,          ,          ,          ,          ,          ,
+SFX       ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,CM-64/32L
+*--------------------------------------------------------------------------------------
+#defoff
+
+#part=32, Standard Set  , GSds:,24	* 1:Standard Set
+*----------------------------------------------------------
+              ,              ,              ,High Q
+Slap          ,Scratch Push  ,Scratch Pull  ,Sticks
+Square Click  ,MetronomeClick,Metronome Bell,Kick Drum 2
+Kick Drum 1   ,Side Stick    ,Snare Drum 1  ,Hand Clap
+Snare Drum 2  ,Low Tom 2     ,Closed Hi-hat ,Low Tom 1
+Pedal Hi-hat  ,Mid Tom 2     ,Open Hi-hat   ,Mid Tom 1
+High Tom 2    ,Crash Cymbal 1,High Tom 1    ,Ride Cymbal 1
+Chinese Cymbal,Ride Bell     ,Tambourine    ,Splash Cymbal
+Cowbell       ,Crash Cymbal 2,Vibra-slap    ,Ride Cymbal 2
+High Bongo    ,Low Bongo     ,Mute Hi Conga ,Open Hi Conga
+Low Conga     ,Hi Timbale    ,Low Timbale   ,High Agogo
+Low Agogo     ,Cabasa        ,Maracas       ,ShortHiWhistle
+LongLowWhistle,Short Guiro   ,Long Guiro    ,Claves
+Hi Wood Block ,Low Wood Block,Mute Cuica    ,Open Cuica
+Mute Triangle ,Open Triangle ,Shaker        ,Jingle Bell
+Bell Tree     ,Castanets     ,Mute Surdo    ,Open Surdo
+*----------------------------------------------------------
+#defoff
+
+#part=33,   Room Set    , GSds:,40	* 9:Room Set
+*----------------------------------------------------------
+              ,Room Low Tom 2,              ,Room Low Tom 1
+              ,Room Mid Tom 2,              ,Room Mid Tom 1
+Room Hi Tom 2 ,              ,Room Hi Tom 1
+*----------------------------------------------------------
+#defoff
+
+#part=34,   Power Set   , GSds:,36	* 17:Power Set
+*----------------------------------------------------------
+MONDO Kick    ,              ,Gated SD      ,
+              ,Room Low Tom 2,              ,Room Low Tom 1
+              ,Room Mid Tom 2,              ,Room Mid Tom 1
+Room Hi Tom 2 ,              ,Room Hi Tom 11
+*----------------------------------------------------------
+#defoff
+
+#part=35,Electronic Set , GSds:,36	* 25:Electronic Set
+*----------------------------------------------------------
+Elec BD       ,              ,Elec SD       ,
+Gated SD      ,Elec Low Tom 2,              ,Elec Low Tom 1
+              ,Elec Mid Tom 2,              ,Elec Mid Tom 1
+Elec Hi Tom 2 ,              ,Elec Hi Tom 1 ,
+Reverse Cymbal
+*----------------------------------------------------------
+#defoff
+
+#part=36,  TR-808 Set   , GSds:,36	* 26:TR-808 Set
+*----------------------------------------------------------
+808 BD        ,808 Rim Shot  ,808 SD       ,
+              ,808 Low Tom 2 ,808 CHH      ,808 Low Tom 1
+808 CHH       ,808 Mid Tom 2 ,808 OHH      ,808 Mid Tom 1
+808 Hi Tom 2  ,808 Cymbal    ,808 Hi Tom 1 ,
+              ,              ,             ,
+808 Cowbel    ,              ,             ,
+              ,              ,808 Hi Conga ,808 Mid Conga
+808 Low Conga ,              ,             ,
+              ,              ,808 Maracas  ,
+              ,              ,             ,808 Claves
+*----------------------------------------------------------
+#defoff
+
+#part=37,   Jazz Set    , GSds:,24	* 33:Jazz Set
+*----------------------------------------------------------
+              ,              ,              ,High Q
+Slap          ,Scratch Push  ,Scratch Pull  ,Sticks
+Square Click  ,MetronomeClick,Metronome Bell,Jazz BD2
+Jazz BD1      ,Side Stick    ,Snare Drum 1  ,Hand Clap
+Snare Drum 2  ,Low Tom 2     ,Closed Hi-hat ,Low Tom 1
+Pedal Hi-hat  ,Mid Tom 2     ,Open Hi-hat   ,Mid Tom 1
+High Tom 2    ,Crash Cymbal 1,High Tom 1    ,Ride Cymbal 1
+Chinese Cymbal,Ride Bell     ,Tambourine    ,Splash Cymbal
+Cowbell       ,Crash Cymbal 2,Vibra-slap    ,Ride Cymbal 2
+High Bongo    ,Low Bongo     ,Mute Hi Conga ,Open Hi Conga
+Low Conga     ,Hi Timbale    ,Low Timbale   ,High Agogo
+Low Agogo     ,Cabasa        ,Maracas       ,ShortHiWhistle
+LongLowWhistle,Short Guiro   ,Long Guiro    ,Claves
+Hi Wood Block ,Low Wood Block,Mute Cuica    ,Open Cuica
+Mute Triangle ,Open Triangle ,Shaker        ,Jingle Bell
+Bell Tree     ,Castanets     ,Mute Surdo    ,Open Surdo
+*----------------------------------------------------------
+#defoff
+
+#part=38,   Brush Set   , GSds:,38	* 41:Brush Set
+*----------------------------------------------------------
+Brush Tap     ,Brush Slap    ,Brush Swirl
+*----------------------------------------------------------
+#defoff
+
+#part=39, Orchestra Set , GSds:,24	* 49:Orchestra Set
+*----------------------------------------------------------
+              ,              ,              ,Closed Hi-Hat
+Pedal Hi-Hat  ,Open Hi-Hat   ,Ride Cymbal   ,
+              ,              ,              ,Concert BD2
+Concert BD1   ,              ,Concert SD    ,Castanets
+Concert SD    ,Timpani F     ,Timpani F#    ,Timpani G 
+Timpani G#    ,Timpami A     ,Timpani A#    ,Timpani B
+Timpani c     ,Timpani c#    ,Timpani d     ,Timpani d#
+Timpani e     ,Timpani f     ,              ,
+              ,Concert Cym.2 ,              ,Concert Cym.1
+              ,              ,              ,
+              ,              ,              ,
+              ,              ,              ,
+              ,              ,              ,
+              ,              ,              ,
+              ,              ,              ,
+              ,              ,              ,
+Applause
+*----------------------------------------------------------
+#defoff
+
+#part=40,    SFX Set    , GSds:,36	* 57:SFX Set
+*----------------------------------------------------------
+              ,              ,              ,High Q
+Slap          ,Scratch Push  ,Scratch Pull  ,Sticks
+Square Click  ,MetronomeClick,Metronome Bell,Gt.Slid.Finger
+Gt.CutNoise.D ,Gt.CutNoise.U ,Str.SlapDubBs.,Fl.Key Click
+Laughing      ,Screaming     ,Punch         ,Heart Beat
+Footsteps 1   ,Footsteps 2   ,Applause      ,DoorCreaking
+Door          ,Scratch       ,Windchime     ,Car-Engine
+Car-Stop      ,Car-Pass      ,Car-Crash     ,Siren
+Train         ,Jetplane      ,Helicopter    ,Starship
+Gun Shot      ,Machine Gun   ,Lasergun      ,Explosion
+Dog           ,Horse-Gallop  ,Birds         ,Rain
+Thunder       ,Wind          ,Seashore      ,Stream
+Bubble
+*----------------------------------------------------------
+#defoff
+
+#part=41, CM-64/32L Set , GSds:,32	* 128:CM-64/32L Set
+*----------------------------------------------------------
+              ,              ,              ,Acou Bass Drum
+Acou Bass Drum,Rim Shot      ,Acou SnareDrum,Hand Clap
+Elec SnareDrum,Acou Low Tom  ,Closed Hi-Hat ,Acou Low Tom
+Open Hi-Hat 2 ,Acou Mid Tom  ,Open Hi-Hat 1 ,Acou Mid Tom
+Acou Hi Tom   ,Crash Cymbal  ,Acou Hi Tom   ,Ride Cymbal
+              ,              ,Tambourine    ,
+Cowbell       ,              ,              ,
+High Bongo    ,Low Bongo     ,Mute Hi Conga ,High Conga
+Low Conga     ,High Timbale  ,Low Timbale   ,High Agogo
+Low Agogo     ,Cabasa        ,Maracas       ,Short Whistle
+Long Whistle  ,Quijada       ,              ,Claves
+Laughing      ,Screaming     ,Punch         ,Heart beat
+Footsteps 1   ,Footsteps 2   ,Applause      ,Creaking
+Door          ,Scratch       ,Windchime     ,Car-Engine
+Car-Stop      ,Car-Pass      ,Car-Crash     ,Siren
+Train         ,Jet           ,Helicopter    ,Starship
+Pistol        ,Machine Gun   ,Lasergun      ,Explosion
+Dog           ,Horse-Gallop  ,Birds         ,Rain
+Thunder       ,Wind          ,Waves         ,Stream
+Bubble
+*----------------------------------------------------------
+#defoff
+
+#end
+
+*--------------------------------------------------------------------------------------
+* sc55.def : end of file
+*--------------------------------------------------------------------------------------
+

@@ -1,0 +1,391 @@
+====================================================================================
+
+	 MIDI Music Composer STed v2.07 for X680x0 Copyright 1990-96 TURBO
+
+====================================================================================
+									1996-11-17
+
+《機能》
+
+    このプログラムは、SHARP X680x0シリーズ用のMIDIシーケンサです。
+
+    レコンポーザ/98 v2.5FのRCPフォーマットで、リアルタイム録音・ステップ入力・
+    編集を行う事が出来ます。トラック数は36で、メモリが有れば58万9356ステップま
+    で編集可能です。
+
+    なお、使用するには、MIDIボード(SHARP CZ-6BM1/ｼｽﾃﾑｻｺﾑ SX-68M)、及び、MIDI音
+    源、さらに、MIDIドライバとして、MIDI演奏システム[RC] v3.01 以降の'RCD.x'等
+    が必要です。(パネル表示演奏を行う場合は、'RCP.x'も必要です。)
+
+    (RS-232Cに接続するMIDIアダプタで使用することも出来ます。(ｼｽﾃﾑｻｺﾑ SX-232C等)
+    また、POLYPHONのMIDIポートで使用することも出来ます。)
+
+    (主に、RolandのMIDI音源(CM-64/SC-55/SC-88)に対応していますが、他の音源でも
+    一部の機能を除いて使用出来ます。)
+
+    また、CM-64等のLA音源部の音色を作成する場合には、Timbre Editor 'TE.x' v0.50
+    以降が必要です。
+
+
+《入っているファイル》
+
+	このアーカイブには、次の13本のファイルが入ってます。
+
+		STed2.doc	今読んでいるドキュメント
+		STed2.man	操作マニュアル
+		STed2.his	変更遍歴
+		STed2.hed	アップロードヘッダ
+		STed2.x		ステップエディタ
+		STed2.hlp	ヘルプファイル
+		STed2.fon	フォントファイル
+		STed2.cnf	環境設定ファイル
+		STed2def.doc	音源定義ファイルの解説
+		cm64.def	CM-64/CM-32x/MT-32用の音源定義ファイル
+		sc55.def	SC-55/SC-155/CM-300用の音源定義ファイル
+		sc55mk2.def	SC-55mkII/SC-33用の音源定義ファイル
+		sc88.def	SC-88/SC-88VL用の音源定義ファイル
+
+	(他の音源を使う場合は、音源定義ファイル(*.def)を書き換えて下さい。)
+
+
+《実行方法》
+
+    起動する前に、環境変数'RCP_DIR'か、起動時のオプション'-D'で、データファイ
+    ル(.RCP/.R36/.CM6/.TRK/.PRT/.TXT/.REX/.RES/.EXC/.RAS)を入出力するディレク
+    トリを設定して下さい。
+
+    設定してない場合は、カレントディレクトリになります。ファイル名を指定して
+    起動した場合は、入出力するディレクトリは、そのファイルのパスになります。
+
+    なお、パートファイル(.PRT)とエクスクルーシブファイル(.REX/.RES/.EXC)、リ
+    ズムアサインファイル(.RAS)は通常はデータファイルと同じディレクトリを使用
+    しますが、'PRT_DIR'で指定することも出来ます。
+
+    また、MIDIドライバとしてRCD.xを常駐させておくとともに、RCP.x/TE.x等を必要
+    に応じて、パスの通ったところに入れておいて下さい。
+
+    起動時に、.RCP/.R36ファイル、または.MDFファイルを指定することにより、その
+    ファイルを読み込んで起動します。
+
+    (動作環境としては、フリーエリアが820K byte以上空いている必要があります。)
+
+    (表示を高速化するために、IOCS.x/HIOCS.x等の使用を推奨します。)
+
+
+  オプション('-'の代わりに'/'は使用出来ません。)
+
+	-M<size>	1トラックの最大容量を指定する。<default = 64K byte>
+					(size = 64～256K byte)
+
+				1トラックで使用出来る最大の容量を指定します。
+				(レコンポーザ/98 V2.5F等では、64K byte以上の
+				トラックは使用出来ません。)
+
+	-U<size>	トラックバッファ確保時の最大容量を指定する。
+					(size = 64～ K byte)
+
+				通常は、トラックサイズ×36までの間で、フリー
+				エリアから取れるだけ確保しますが、このオプシ
+				ョンで指定することもできます。
+
+				指定した場合には、子プロセスの実行時にトラッ
+				クバッファの空きメモリを解放しなくなります。
+
+	-W<size>	レコーディングバッファの容量を指定する。
+					(size = 128～512K byte)
+
+				レコーディングで使用するバッファの容量を指定
+				します。(デフォルトではトラックサイズ + 32k
+				byte 確保します。)
+
+	-F<file>	音源定義ファイルを指定する。
+
+				デフォルトのファイルは、STed2.cnfでの設定に依
+				存します。
+
+				カレントディレクトリ以外のファイルを指定する場
+				合は、フルパスで指定して下さい。
+
+				STed2.xが有るディレクトリ内のファイルの場合は、
+				パスを省略出来ます。
+
+				例	sted2 -fsc88
+
+	-B<num>		音色名の表示に使用するPCM CARDを指定する。(1～16)
+				(cm64.def使用時)
+
+	-D<path>	データディレクトリを指定する。
+
+				pathを省略すると、カレントが設定されます。
+
+	-R		ポイントプレイをRCD.xの機能で実行する。
+
+				通常は、演奏の開始位置を小節番号で管理するので、
+				数秒で演奏を開始しますが、小節を越えたリピート等
+				でトラック毎の小節のタイミングがずれるとポイント
+				プレイが正常に出来ません。
+
+				このスイッチを指定した場合は、STで管理するので、
+				小節番号がずれていても正常に演奏出来ますが、RCD
+				のサーチ機能を使用するので、演奏を開始するまで、
+				時間がかかります。
+
+	-P		メインメニューの演奏コマンドのデフォルトをパネル表示演奏
+			にする。([SHIFT]モードと機能を入れ換える)
+
+	-L		起動時にRCDバッファのデータを読み込む
+
+	-S		終了時にRCDバッファにデータを転送しない
+
+				通常は、終了時にバックアップの意味で、RCDのバッファ
+				にデータを転送していますが、このスイッチを指定した
+				場合は、転送をキャンセルします。
+
+				(演奏中にSTedを終了させた場合は、演奏を停止しますが、
+				このスイッチを指定した場合は、演奏を継続します。)
+
+	-?		オプションの表示
+
+
+		オプションは、環境変数'STED2'で指定しておくことも出来ます。
+
+
+  使用例
+
+	C:\>set RCP_DIR=D:\RCP\
+	C:\>rcd
+	X68k RCD:  RC play driver v3.01 Copyright 1990-96 HARPOON,TURBO
+	常駐しました。
+	C:\>sted2
+	X68k MIDI Music Composer STed v2.07 Copyright 1990-96 TURBO
+
+
+《使用する拡張子》
+
+	*.RCP	曲データ(18/36トラック)		(*1)
+	*.R36	曲データ(36トラック専用)	(*1)
+	*.CM6	CM-64コントロールデータ		(*1)
+	*.GSD	SC-55コントロールデータ		(*1)
+	*.TRK	トラック単位の曲データ
+	*.PRT	指定した範囲の曲データ		(*1)
+	*.REX	User Exclusiveデータ(一括)	(*1)
+	*.RES	User Exclusiveデータ(箇別)
+	*.EXC	Track Exclusiveデータ(TEXT)
+	*.RAS	Rhythm Assignデ－タ
+
+	(*1 レコンポーザ/98 v2.5F互換)
+
+
+《関連ツール》
+
+	rc3013.Lzh	MIDI演奏システム[RC] v3.01 基本システム(by HARPOON,TURBO)
+	conv3013.Lzh	MIDI演奏システム[RC] v3.01 コンバータズ(by HARPOON,TURBO)
+
+		  本システムは、各種のMIDI音楽ファイルを、Human68K上に常駐して、
+		BGM演奏するためのプログラム群です。
+
+	rcd301q.Lzh	RC play driver v3.01q Copyright 1990-96 HARPOON,TURBO
+
+		このアーカイブは、MIDIでRCP形式のファイルを常駐して演奏する
+		ためのドライバーとコントローラのセットです。(旧バージョン)
+
+	wrdp296.Lzh	RC word display player v2.96 Copyright 1991-96 TURBO
+
+		このプログラムは、PC-9800シリーズ用の、MIMPI.EXEの.WRDファイル
+		及び、WRDP.COMの.WRDファイル用の表示演奏ツールです。
+
+	RCAMP088.LZH	RCD Auto Music Player  RCAMP.X Version 0.88 by  ＳＩＤ
+
+		このツールはMIDIドライバRCD上でバックグラウンド自動演奏を実現する
+		ものです。演奏データをメモリ上に蓄えておき、演奏の切れ目でRCD上の
+		バッファへデータを順次転送することでそれを実現しています。
+
+	SXRCP090.Lzh	RCプレイヤー for SX-WINDOW  SXRCP.x v0.90
+						1992/07/04	(by 吉沢Yoz.正敏)
+
+		  SXRCP.Xは、SX-WINDOW上でRCP形式のMIDIデータを演奏するための
+		ツールです。
+		  単独のRCP形式のファイルはもちろん、いくつかのRCPファイルを
+		まとめて「アルバム」という形で取り扱うことが可能です。
+
+	KoRCP110.LZH	RCプレイヤー for Ko-Window  KoRCP.win v1.10
+						1991/06/17	(by COR.)
+
+		  MIDIのRCシステム用プレイヤーです。PLAY.win 同様バックグラ
+		ウンドで勝手にファイルを取り替えて自動演奏してくれます。
+
+	KoRPN122.Lzh	ＲＣ用パネル演奏 KoRCPNL.win v1.22 by Ｇoemon
+
+		このプログラムは、MIDIﾄﾞﾗｲﾊﾞ「ＲＣ」の演奏状態を表示し、変更するものです。
+		18ﾄﾗｯｸの音量、ﾊﾟﾝﾎﾟｯﾄ、使用ﾁｬﾝﾈﾙ、歌詞等をリアルタイムに表示します。
+		また、ボリュームやパンポット、ピッチベンド、ｴｸｽﾌﾟﾚｯｼｮﾝも変更可能です。
+
+	lzz057.Lzh	ミュージックデータ展開・圧縮ツール - LZZ.r v0.57 -
+								(c)1992-94 NOVA
+
+		  これは LZM v2.91+01 を元にアセンブラレベルでサイズの小型化
+		及びリロケータブル形式に書き直した物です。（速度もアップ）
+
+	te054.Lzh	ティンバー・エディタ v0.54		(by HARPOON/TURBO)
+
+		CM-64/CM-32L/MT-32対応の音色エディタです。
+
+	ge060.Lzh	GS/GM control Data Editor Version 0.60	Copyright 1994,95 By TAKA-P
+
+		  ＧＳ/ＧＭ control Ｄata Ｅditor (GE.x) は、カモンミュージック社からが市販
+		されている  ﾚｺﾝﾎﾟｰｻﾞ/98 v2.5x  の機能の１つである 、 GS/GM コントローラ部を
+		X680x0で再現・拡張したものです。
+
+	gtor040.lzh	ﾚｺﾝﾎﾟｰｻﾞ/98 Ver2.5G file converter v0.40 Copyright 1995,96 NAxTAKA-P
+
+		ﾚｺﾝﾎﾟｰｻﾞ/98ver2.5G 用のファイル(.G18/.G36)を,RCM v2のファイル
+		に変換したり, バッファ上で変換後に RCP を起動し演奏できます.
+
+	MtoR220.Lzh	MCP to RCP file converter v2.20		(by TURBO)
+
+		RCM-PC98 v1.0のMCP/MTDファイルを、RCM-PC98 v2.0/STed v2.0の
+		RCP/CM6ファイルに変換します。
+
+	same054.Lzh	Same Meas compresser v0.54 Copyright 1993,94 TURBO
+
+		このプログラムは、RCM v2/STed v2 の RCP/R36ファイルを、SAME
+		MEAS圧縮や、データ最適化等を使用してコンパクト化するためのユ
+		ーティリティです。
+
+	toMML100.lzh	RCP to MML file converter v1.00		(by TURBO)
+
+		RCPファイルをMCV.x(MDD.x)用のMML(.MDL/.MML)に変換します。
+		(.CM6/.GSDファイルは未対応)
+
+	tone160.lzh	RCP file tone dumper v1.60		(by TURBO)
+
+		RCP/R36/CM6ファイルの中で使用されている音色のリストを標準出力
+		に書き出します。
+
+	cm6cv030.lzh	CM6 file PCM BANK converter v0.30	(by TURBO)
+
+		MT-32で作ったユーザートーン(.CM6ファイル)が、CM-64/CM-32L
+		で、うまく鳴らない場合に、鳴るように変換します。
+		(ユーザートーンで使用しているPCMのPCM BANK No.が2の場合に、
+		1に変換します。)
+
+	prtcv100.Lzh	TRACK/PART file converter v1.00		(by TURBO)
+
+		STed v2.00iまでの、*.TRK/*.PRTファイルを、STed v2.00j以降で
+		読めるようにするためのコンバータです。
+
+	msgpr020.Lzh	MSG to PRT file converter v0.20 Copyright 1992 TURBO
+
+		このプログラムは、テキストファイルに書かれているコメントを
+		STed2でパートロード出来る形式のPRTファイルに変換するための
+		ツールです。
+		コメントでアニメさせる時には便利かも知れないです。(^^;)
+
+	CVS504_X.Lzh	Standard MIDI File Converter CVS V5.04
+						(by HAJI/Translate by TURBO)
+
+		  このプログラムは、レコンポーザ・ファイル(RCP/R36/MCP)を標
+		準MIDIファイルに変換するためのものです。
+		  標準MIDIファイルは、フォ－マット1のみをサポ－トしています。
+		(HAJIさんのCVS.EXE v5.04を移植させて頂きました。)
+
+
+《使用言語・ツール》
+
+	Human68k v3.02			(SHARP/Hudson)
+	HIOCS v1.10+16			(SHARP/Y.Nakamura)
+	Hi-Speed FontDriver v1.21	(H.Ogasawara(COR.))
+	MuED v1.11			(SHARP/Hudson, Fuman Group, Exman Group, Mapi)
+	GNU make v3.56			(homy version)
+	GNU C v1.23 Tool#1(X680x0) Based on 1.42
+					(mariko version)
+	High-Speed Assembler v3.09	(Copyright Y.Nakamura)
+	High-Speed Linker v3.01		(Copyright SALT)
+		・
+		・
+		・
+
+
+《使用ライブラリ》
+
+	XC library/header v2.11		(SHARP/Hudson)
+	GNUlib v1.46			(T.Ohtsuki version)
+	rcddef.h/rcdcheck.s		(by HARPOON/TURBO)
+	OnGraphic.s			(by Ext)		(多少、変更して使用)
+	hprint.s			(by IRUKA)		(多少、拡張して使用)
+
+
+《使用機器》
+
+	MPU		: X68030(CZ-500C)	(SHARP)
+	Display		: CZ-614D-TN		(SHARP)
+	Memory Board	: PIO-6BE4-4M(認識せず)	(IO･DATA)
+	Hard Disk	: GF-240		(JEF)
+	3.5FD Drive	: YD-686C		(YE-DATA)
+	Modem		: Sportster 14400/FAX	(US･Robostics)
+	Printer		: AP-500		(EPSON)
+	MIDI Board	: CZ-6BM1		(SHARP)
+	MIDI Sound	: CM-64+SN-U110-06/07/10(Roland)
+		Module	: SC-155		(Roland)
+	MIDI Keyboard	: PC-200		(Roland)
+	System Compo	: DC-5500		(Victor)
+	Head Phones	: AH-D210		(DENON)
+	Game Machine	: SEGA SATURN		(SEGA)
+
+
+    サブシステム(使ってない・・・)
+
+	MPU		: X68000ACE-HD(CZ-611C)	(SHARP)
+	Display		: CZ-600D		(SHARP)
+	Memory Board	: CZ-6BE1A		(SHARP)
+	Modem		: MD2400F		(OMRON)
+
+
+《謝辞》
+
+    資料提供、及び、デバッグに協力していただいた、HARPOONさん、吉田さん、イクサさん、
+    染之介さん、みつじんさん、ＨＯＲＹさん、ＮＥＫＯさん、まぴさん、大ＰＹＡＮさん、
+    W_RINNさん、Sightさん、ミニカさん、☆紀さん、てかてかさん、おたらさん、Ｇａｏさん、
+    くまあるきさん、Rootsさん、Ｅｘｔさん、ガムオさん、よねちゃんさん、他・・・
+    に感謝いたします。
+
+    また、使用させて頂いた、フリーウェア等の作成者・移植者の方々にも、感謝いたします。
+
+
+《最後に》
+
+    このプログラムは、フリーウェアですので、配布・転載は自由に行って下さい。但し、
+    転載する場合は、事後でもかまいませんので、メールで転載先等を連絡して下さい。
+
+    また、バクレポート・要望があれば、教えて下さい。必ず直すとは限りませんが、バー
+    ジョンアップの参考にしますので、宜しくお願いします。
+
+    なお、使用した結果、生じたトラブル等の責任は負いかねますので御了承ください。
+
+							ＴＵＲＢＯ
+
+
+ *ゆいNET	  YUI00744	(0467-44-0643(代表回線) 14400bps (MNP5/LAPV))
+ *RAMS-NETWORK	  #561		(GUEST:06-956-3199 代表:06-956-5633 2400bps MNP7)
+  ＰowerＳtation  PS0034	(0720-75-8614(代表)28800bps)
+  SUNDAY-NET	  sun0993
+  PHN		  PNC00001
+  ASCII-NET	  pcs30359
+  EYE-NET	  IKM001
+  Misato Network  TURBO
+  BBS FREAK	  TURBO
+
+	(* = 直接アップロードしているBBS / ** = 常に最新版があるBBS)
+
+====================================================================================
+    開発期間	～v1(v0.01 ～ v0.73) 1990-05-30 ～ 1990-09-08 .MCP対応、開発途中版
+		～v2(-0.50 ～ -0.01) 1990-09-10 ～ 1991-08-20 .RCP対応、開発途中版
+		version 2.00 ～      1991-08-24 ～	      .RCP対応、正式版
+		version 2.01 ～      1992-04-03 ～	      GS format 対応版
+		version 2.02 ～      1993-03-27 ～	      Recording 対応版
+		version 2.03 ～      1993-12-26 ～	      36track(.R36) 対応版
+		version 2.04 ～      1994-05-19 ～	      Roland SC-88 対応版
+		version 2.05 ～      1994-08-06 ～	      RC v3.01 対応版
+		version 2.06 ～      1994-10-19 ～	      GE v0.12 対応版
+====================================================================================
+

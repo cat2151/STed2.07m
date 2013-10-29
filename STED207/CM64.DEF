@@ -1,0 +1,360 @@
+*--------------------------------------------------------------------------------------
+* cm64.def : STed v2.07 音源定義ファイル(Roland CM-64対応)		1996-11-17
+*--------------------------------------------------------------------------------------
+
+* 使用する音源の機種名(表示用=module/内部処理用=id)
+*       [ 22文字まで         ]
+#module= MODULE: Roland CM-64
+
+#id=CM64
+*#mute=SC55
+
+* 使用するカードの設定
+#card_no=7
+
+* 演奏時のラストパラメータ送信のウエイト
+#lsp_wait=1	* (0～16= wait×0～16 / -1=パラメータを送信しない)
+
+*======================================================================================
+* レコーディングの設定
+
+* メトロノームで使用するノート(click&bell)
+*        ch prg  key gt vel  key gt vel
+#rec_met=10,  0,  37, 2,106,  37, 2,120
+
+*======================================================================================
+* ユーザー定義エクスクルーシブの初期データ(0～7)
+
+* gt : SEND GATE POSITION DATA   cs : CLEAR CHECK SUM
+* ve : SEND VELO POSITION DATA   ss : SEND CHECK SUM
+* ch : SEND CHANNLE No.
+
+	[no][data(24byte) f0h f7h を省いて設定して下さい。 ]-[comment(24byte)       ]
+#user_exc=0,
+#user_exc=1,
+#user_exc=2,
+#user_exc=3,
+#user_exc=4,
+#user_exc=5,
+#user_exc=6,
+#user_exc=7,
+
+*======================================================================================
+* 音色リストの割り当て(0=NoUse/1～15=part1～part15)
+
+* チャンネル毎の音色リストの割り当て
+#group_a=0,1,1,1,1,1,1,1,1,2,3,3,3,3,3,3 * (ch.A1-16) CM-64用
+#group_b=7,7,7,7,7,7,7,7,7,8,7,7,7,7,7,7 * (ch.B1-16) SC-55用
+
+*======================================================================================
+* リズムアサインの初期データ(1～32) (リズムネームは14文字まで)
+
+* サウンドテスト用の設定
+#rhy_as=10,-1,-1,,127	* ch.(1～16),prog.(0～127,-1=off),bank_l(0～127,-1=off),,vel
+*--------------------------------------------------------------------------------------
+*[RHYTHM NAME][KEY,GT][RHYTHM NAME]-[KEY,GT][RHYTHM NAME]-[KEY,GT][RHYTHM NAME]-[KEY,GT]
+Hand Clap     , 39, 1,Mt HiConga    , 62, 1,High Conga    , 63, 1,Low Conga     , 64, 1
+Crash Cym     , 49, 1,Ride Cym      , 51, 1,OpenHiHat2    , 44, 1,OpenHiHat1    , 46, 1
+Clsd HiHat    , 42, 1,Acou HiTom    , 48, 1,AcouMidTom    , 45, 1,AcouLowTom    , 41, 1
+Rim Shot      , 37, 1,Elec SD       , 40, 1,Acou SD       , 38, 1,Acou BD       , 36, 1
+Hi Timbale    , 65, 1,LowTimbale    , 66, 1,Cowbell       , 56, 1,High Bongo    , 60, 1
+Low Bongo     , 61, 1,High Agogo    , 67, 1,Low Agogo     , 68, 1,Tambourine    , 54, 1
+Claves        , 75, 1,Maracas       , 70, 1,SmbaWhis L    , 72, 1,SmbaWhis S    , 71, 1
+Cabasa        , 69, 1,Quijada       , 73, 1,              ,  0, 1,              ,  0, 1
+*--------------------------------------------------------------------------------------
+#defoff
+
+*======================================================================================
+* 音色名定義(part1～400) (音色名は12文字まで)
+
+* [No.]-[Title(16byte) ][header][offset]
+#part=1,CM-64 LA PART   ,   LA:		* CM-64 LA PART内蔵音色(tone 1～128)
+*--------------------------------------------------------------------------------------
+AcouPiano1,AcouPiano2,AcouPiano3,ElecPiano1,ElecPiano2,ElecPiano3,ElecPiano4,HonkyTonk
+Elec Org 1,Elec Org 2,Elec Org 3,Elec Org 4,Pipe Org 1,Pipe Org 2,Pipe Org 3,Accordion
+Harpsi 1  ,Harpsi 2  ,Harpsi 3  ,Clavi 1   ,Clavi 2   ,Clavi 3   ,Celesta 1 ,Celesta 2
+Syn Brass1,Syn Brass2,Syn Brass3,Syn Brass4,Syn Bass 1,Syn Bass 2,Syn Bass 3,Syn Bass 4
+Fantasy   ,Harmo Pan ,Chorale   ,Glasses   ,Soundtrack,Atmosphere,Warm Bell ,Funny Vox
+Echo Bell ,Ice Rain  ,Oboe 2001 ,Echo Pan  ,DoctorSolo,Schooldaze,BellSinger,SquareWave
+Str Sect 1,Str Sect 2,Str Sect 3,Pizzicato ,Violin 1  ,Violin 2  ,Cello 1   ,Cello 2
+Contrabass,Harp 1    ,Harp 2    ,Guitar 1  ,Guitar 2  ,Elec Gtr 1,Elec Gtr 2,Sitar
+Acou Bass1,Acou Bass2,Elec Bass1,Elec Bass2,Slap Bass1,Slap Bass2,Fretless 1,Fretless 2
+Flute 1   ,Flute 2   ,Piccolo 1 ,Piccolo 2 ,Recorder  ,Pan Pipes ,Sax 1     ,Sax 2
+Sax 3     ,Sax 4     ,Clarinet 1,Clarinet 2,Oboe      ,Engl Horn ,Bassoon   ,Harmonica
+Trumpet 1 ,Trumpet 2 ,Trombone 1,Trombone 2,Fr Horn 1 ,Fr Horn 2 ,Tuba      ,Brs Sect 1
+Brs Sect 2,Vibe 1    ,Vibe 2    ,Syn Mallet,Wind Bell ,Glock     ,Tube Bell ,Xylophone
+Marimba   ,Koto      ,Sho       ,Shakuhachi,Whistle 1 ,Whistle 2 ,BottleBlow,BreathPipe
+Timpani   ,MelodicTom,Deep Snare,Elec Perc1,Elec Perc2,Taiko     ,Taiko Rim ,Cymbal
+Castanets ,Triangle  ,Orche Hit ,Telephone ,Bird Tweet,OneNoteJam,WaterBells,JungleTune
+*--------------------------------------------------------------------------------------
+#defoff
+
+#part=2,CM-64 RHYTHM&SE			* CM-64 RHYTHM&SE PART内蔵音色(tone 1～64)
+*--------------------------------------------------------------------------------------
+Acou BD   ,Acou SD   ,Acou HiTom,AcouMidTom,AcouLowTom,Elec SD   ,Clsd HiHat,OpenHiHat1
+Crash Cym ,Ride Cym  ,Rim Shot  ,Hand Clap ,Cowbell   ,Mt HiConga,High Conga,Low Conga
+Hi Timbale,LowTimbale,High Bongo,Low Bongo ,High Agogo,Low Agogo ,Tambourine,Claves
+Maracas   ,SmbaWhis L,SmbaWhis S,Cabasa    ,Quijada   ,OpenHiHat2,Laughing  ,Screaming
+Punch     ,Heartbeat ,Footsteps1,Footsteps2,Applause  ,Creaking  ,Door      ,Scratch
+Windchime ,Engine    ,Car-stop  ,Car-pass  ,Crash     ,Siren     ,Train     ,Jet
+Helicopter,Starship  ,Pistol    ,Machinegun,Lasergun  ,Explosion ,Dog       ,Horse
+Birds     ,Rain      ,Thunder   ,Wind      ,Waves     ,Stream    ,Bubble    ,OFF
+*--------------------------------------------------------------------------------------
+#defoff
+
+#part=3,CM-64 PCM PART  ,  PCM:		* CM-64 PCM PART内蔵音色(tone 1～128)
+*--------------------------------------------------------------------------------------
+A.Piano 1 ,A.Piano 2 ,A.Piano 3 ,A.Piano 4 ,A.Piano 5 ,A.Piano 6 ,A.Piano 7 ,A.Piano 8
+A.Piano 9 ,A.Piano 10,E.Piano 1 ,E.Piano 2 ,E.Piano 3 ,E.Piano 4 ,E.Piano 5 ,A.Guitar 1
+A.Guitar 2,A.Guitar 3,A.Guitar 4,A.Guitar 5,E.Guitar 1,E.Guitar 2,E.Guitar 3,E.Guitar 4
+Slap 1    ,Slap 2    ,Slap 3    ,Slap 4    ,Slap 5    ,Slap 6    ,Slap 7    ,Slap 8
+Slap 9    ,Slap 10   ,Slap 11   ,Slap 12   ,Fingered 1,Fingered 2,Picked 1  ,Picked 2
+Fretless 1,Fretless 2,AC.Bass   ,Choir 1   ,Choir 2   ,Choir 3   ,Choir 4   ,Strings 1
+Strings 2 ,Strings 3 ,Strings 4 ,E.Organ 1 ,E.Organ 2 ,E.Organ 3 ,E.Organ 4 ,E.Organ 5
+E.Organ 6 ,E.Organ 7 ,E.Organ 8 ,E.Organ 9 ,E.Organ 10,E.Organ 11,E.Organ 12,E.Organ 13
+Soft Tp 1 ,Soft Tp 2 ,Soft Tp 3 ,Tp/Trb 1  ,Tp/Trb 2  ,Tp/Trb 3  ,Tp/Trb 4  ,Tp/Trb 5
+Tp/Trb 6  ,Sax 1     ,Sax 2     ,Sax 3     ,Sax 4     ,Sax 5     ,Brass 1   ,Brass 2
+Brass 3   ,Brass 4   ,Brass 5   ,Orche Hit
+*--------------------------------------------------------------------------------------
+#defoff
+
+*-------- PCM CARD SOUND LIST ---------------------------------------------------------
+* PCMカードの音色リスト(card 1～16)	* CM-64 PCM PART拡張音色 (tone 1～128)
+
+#card=1,SN-U110-01 Pipe Organ & Harpsichord (1～20)	* 1991-06-10 by ☆紀
+*--------------------------------------------------------------------------------------
+HARPSI 1  ,HARPSI 2  ,HARPSI 3  ,HARPSI 4  ,HARPSI 5  ,HARPSI 6  ,POSITIVE 1,POSITIVE 2
+POSITIVE 3,POSITIVE 4,POSITIVE 5,POSITIVE 6,CHURCH 1  ,CHURCH 2  ,CHURCH 3  ,CHURCH 4
+CHURCH 5  ,CHURCH 6  ,CHURCH 7  ,CHURCH RVB
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=2,SN-U110-02 Latin & F.X. Percussions (1～52)	* 1991-03-10 by ＨＯＲＹ
+*--------------------------------------------------------------------------------------
+LATIN 1   ,LATIN 2   ,LATIN 3   ,F.X. 1    ,F.X. 2    ,F.X. 3    ,F.X. 4    ,CONGA 1
+CONGA 2   ,CONGA 3   ,BONGO     ,CLAVES    ,TIMBALE   ,TAMBOURINE,WOOD BLOCK,WHISTLE
+TRIANGLE  ,BELLTREE  ,JINGLEBELL,VIBRASLAP ,CASTANET  ,MARACAS   ,AGOGO 1   ,AGOGO 2
+CUICA 1   ,CUICA 2   ,GUIRO 1   ,GUIRO 2   ,GUIRO 3   ,BERIMBAU  ,SHEKELE   ,STEEL DRUM
+LOG DRUM  ,ORCH HIT  ,SIREN     ,TYPE 1    ,TYPE 2    ,CLOCK     ,PINBALL   ,TELEPHONE
+SMSH GLASS,REZNO     ,EERIE     ,AMBIA JR  ,TEMPLE BLK,ZING!     ,BOING!    ,MOD ZAP
+INTERFACE ,SCRATCH   ,STAKE     ,ZAPPU
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=3,SN-U110-03 Ethnic                   (1～38)	* 1991-06-27 by Ganba
+*--------------------------------------------------------------------------------------
+TABLA     ,TABLA-GA  ,TABLA-TE  ,TABLA-NA  ,TABLA-TRKT,TABLA-TUN ,TSUZUMI 1 ,TSUZUMI 2
+TSUZUMI 3 ,HYOSHIGI  ,GENDER 1  ,GENDER 2  ,SANZA 1   ,SANZA 2   ,BARAFON 1 ,BARAFON 2
+BARAFON 3 ,BARAFON 4 ,SITAR 1   ,SITAR 2   ,SITAR 3   ,SANTUR 1  ,SANTUR 2  ,SANTUR 3
+KOTO 1    ,KOTO 2    ,KOTO 3    ,KOTO 4    ,KOTO 5    ,KOTO 6    ,KOTO 7    ,KOTO 8
+KOTO TREMO,SICU 1    ,SICU 2    ,SHANAI 1  ,SHANAI 2  ,SHANAI 3
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=4,SN-U110-04 Electric Grand & Clavi   (1～12)	* 1991-09-01 by 〓WAIEN〓
+*--------------------------------------------------------------------------------------
+E.GRAND 1 ,E.GRAND 2 ,E.GRAND 3 ,E.GRAND 4 ,E.GRAND 5 ,E.GRAND 6 ,E.GRAND 7 ,E.GRAND 8
+CLAVI 1   ,CLAVI 2   ,CLAVI 3   ,CLAVI 4
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=5,SN-U110-05 Orchestral Strings       (1～11)	* 1991-04-25 by ミニカ
+*--------------------------------------------------------------------------------------
+VIOLIN 1  ,VIOLIN 2  ,VIOLIN 3  ,CELLO 1   ,CELLO 2   ,CELLO 3   ,CELLO/VLN ,CB/CELLO
+PIZZICATO ,HARP 1    ,HARP 2
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=6,SN-U110-06 Orchestral Winds         (1～36)	* 1991-04-25 by ミニカ
+*--------------------------------------------------------------------------------------
+OBOE 1    ,OBOE 2    ,OBOE 3    ,OBOE 4    ,OBOE 5    ,OBOE 6    ,BASSOON 1 ,BASSOON 2
+BASSOON 3 ,BASSOON 4 ,BASSOON 5 ,CLARINET 1,CLARINET 2,CLARINET 3,CLARINET 4,CLARINET 5
+CLARINET 6,BASS CL 1 ,BASS CL 2 ,BASS CL 3 ,BASS CL 4 ,BASS CL 5 ,FR.HORN 1 ,FR.HORN 2
+FR.HORN 3 ,FR.HORN 4 ,FR.HORN 5 ,FR.HORN 6 ,TUBA 1    ,TUBA 2    ,TUBA 3    ,TUBA 4
+TUBA 5    ,TIMPANI 1 ,TIMPANI 2
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=7,SN-U110-07 Electric Guitar          (1～71)	* 1990-08-01 by 染之介
+*--------------------------------------------------------------------------------------
+JZG SW 1  ,JZG SW 2  ,JZG SW 3  ,JZG piano ,JZG forte ,JZG DT pi ,JZG DT fo ,JZG OCT P1
+JZG OCT P2,JZG OCT F1,JZG OCT F2,JZG SW S/F,JZG COMP 1,JZG COMP 2,JZG COMP 3,ODG fuzzy
+ODG dry   ,ODG normal,ODG warm  ,ODG fat   ,ODG SW HM ,ODG piano ,ODG forte ,ODG DT P
+ODG DT F  ,ODG OCT P1,ODG OCT P2,ODG OCT F1,ODG OCT F2,ODG SW S/F,ODG FB 1  ,ODG FB 2
+ODG FB 3  ,ODG FB 4  ,ODG FB 5  ,ODG FB 6  ,ODG FB 7  ,ODG FB 8  ,ODG FB 9  ,ODG FB 10
+ODG FB 11 ,ODG FB 12 ,DSG fuzzy ,DSG dry   ,DSG normal,DSG warm  ,DSG fat   ,DSG hrmnic
+DSG mute  ,DSG forte ,DSG DT    ,DSG +4th 1,DSG +4th2 ,DSG -5th 1,DSG -5th 2,DSG OCT 1
+DSG OCT 2 ,DSG SW S/F,DSG FB 1  ,DSG FB 2  ,DSG FB 3  ,DSG FB 4  ,DSG FB 5  ,DSG FB 6
+DSG FB 7  ,DSG FB 8  ,DSG FB 9  ,DSG FB 10 ,DSG FB 11 ,DSG FB 12 ,PICKING HM
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=8,SN-U110-08 Synthesizer              (1～28)	* 1991-07-14 by TURBO
+*--------------------------------------------------------------------------------------
+FANTASIA  ,BELL PAD  ,SYN.CHOIR ,BREATH VOX,L.CALLIOPE,CALLIOPE  ,METAL HIT ,RICH BRASS
+BRASTRINGS,STRINGPAD1,STRINGPAD2,PIZZAGOGO ,FANTA BELL,SPECT BELL,BELL DRUM ,SYN.HARP
+PULSEWAVE1,PULSEWAVE2,PULSEWAVE3,SAW WAVE 1,SAW WAVE 2,PIZZ      ,METAL     ,BREATH
+NAILS     ,SPECTRUM 1,SPECTRUM 2,N.DANCE
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=9,SN-U110-09 Guitar & Keyboads        (1～16)	* 1991-05-29 by 染之介
+*--------------------------------------------------------------------------------------
+BRIGHT EP1,BRIGHT EP2,SYN.VOX 1 ,SYN.VOX 2 ,SYN.BASS 4,SYN.BASS 5,SYN.BASS 6,SYN.BASS 7
+SYN.BASS 8,HEAVY.EG 1,HEAVY.EG 2,JP.STRINGS,JP.BRASS 1,JP.BRASS 2,R.ORGAN 1 ,R.ORGAN 2
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=10,SN-U110-10 Rock Drums               (1～ 2)	*            by TURBO
+*--------------------------------------------------------------------------------------
+ROCK DRUMS,ELEC DRUMS
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=11,SN-U110-11 Sound Effects            (1～34)	* 1991-06-06 by てかてか
+*--------------------------------------------------------------------------------------
+CREAKING  ,DOOR      ,FOOTSTEPS ,WATERPHONE,S-STRINGS ,SCREAMING ,LAUGHING  ,DOG
+WAVE      ,STREAM    ,BIRDS     ,DROP      ,RAIN      ,THUNDER   ,CAR DOOR  ,CAR STOP
+CAR CRASH ,TRAIN     ,PISTOL    ,MACHINEGUN,MISSILE   ,EXPLOSION ,BIG FOOT  ,DOZILLA
+TEL CALL  ,CHIME     ,APPLAUSE  ,FROM RADIO,BUBBLE 1  ,BUBBLE 2  ,TOY       ,FANTASYHIT
+S-SET     ,C-SET
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=12,SN-U110-12 Sax & Trombone           (1～20)	* 1991-08-25 by 〓WAIEN〓
+*--------------------------------------------------------------------------------------
+SAX SW 1  ,SAX SW 2  ,SAX SW 3  ,SAX SW 4  ,SAX P 1   ,SAX P 2   ,SAX P 3   ,SAX MF 1
+SAX MF 2  ,SAX FF    ,TRB SW 1  ,TRB SW 2  ,TRB P     ,TRB MF    ,TRB FF    ,TP/TRB SW1
+TP/TRB SW2,TP/TRB P  ,TP/TRB MF ,TP/TRB FF
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=13,SN-U110-13 Super Strings            (1～12)	* 1991-12-21 by くまあるき
+*--------------------------------------------------------------------------------------
+SUP STR 1 ,SUP STR 1L,SUP STR 1R,SUP STR 2 ,SUP STR 2L,SUP STR 2R,SUP STR 3 ,SUP STR 3L
+SUP STR 3R,SUP STR 4 ,SUP STR 4L,SUP STR 4R
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=14,SN-U110-14 Super Ac Guitar          (1～19)	* 1992-01-07 by FATMAN
+*--------------------------------------------------------------------------------------
+STEEL GTR1,STEEL SOFT,STEEL HARD,STEEL GTR2,STEEL (L) ,STEEL (R) ,NYLON GTR1,NYLON SOFT
+NYLON HARD,NYLON GTR2,NYLON (L) ,NYLON (R) ,12STR GTR1,12STR GTR2,12STR GTR3,12STR GTR4
+12STR GTR5,HARMONICS ,SQUEAK
+*--------------------------------------------------------------------------------------
+#defoff
+
+#card=15,SN-U110-15 Super Brass              (1～13)	* 1993-08-29 by 魔女の宅急便
+*--------------------------------------------------------------------------------------
+HI BRASS 1,HI BRASS 2,HI BRS SF ,LO BRASS 1,LO BRASS 2,LO BRS SF ,BRS CMB 1 ,BRS CMB 1L
+BRS CMB 1R,BRS CMB 2 ,BRS CMB 2L,BRS CMB 2R,BRS CMB SF
+*--------------------------------------------------------------------------------------
+#defoff
+
+*#card=16,CM-500/64e CM-64 Emulate Mode(prog.65～128)	* 1991-12-26 by TURBO
+**--------------------------------------------------------------------------------------
+** CM-500 >> CM-64 Emulate Mode(CM-64モードでのPCMカードエリアの音色のリスト)
+**
+*Harpsi    ,CoupledHps,Church 1  ,Church 2  ,TinkleBell,SteelDrums,Celesta   ,Sitar
+*Santur    ,Koto      ,Pan Flute ,Piano 3   ,Clav.     ,Violin 1  ,Violin 2  ,Cello 1
+*Cello 2   ,Contrabass,Pizzicato ,Harp      ,Oboe 1    ,Oboe 2    ,Bassoon 1 ,Bassoon 2
+*Clarinet 1,Clarinet 2,Clarinet 3,Fr.Horn 1 ,Fr.Horn 2 ,Fr.Horn 3 ,Tuba 1    ,Tuba 2
+*Timpani   ,Jazz Gt.  ,HawaiianGt,Muted Gt. ,Chorus Gt.,Overdrive ,Distortion,FeedbackGt
+*Gt.Harmoni,Fantasia  ,SpaceVoice,Solo Vox  ,Metal Pad ,SynthBass1,SynthStr.1,SynthStr.2
+*E.Piano  2,DetunedEP2,Syn Vox   ,SynthBass1,SynthBass2,SynthBass3,SynthBass4,SynthBass2
+*Organ 3   ,Alto Sax  ,Tenor Sax ,BaritonSax,Trombone  ,Melo Tom  ,Synth Drum,808 Tom
+**--------------------------------------------------------------------------------------
+*#defoff
+
+#part=5,<<< Roland U220 , U220:		* 音色リスト(prog.0～127)
+*--------------------------------------------------------------------------------------
+* Roland U220 sound list(prog.0～127)
+*
+A.Piano 1 ,A.Piano 4 ,A.Piano 10,E.Piano 1 ,E.Piano 5 ,Bright EP ,Vib 1     ,Marimba
+Bell      ,Fanta Bell,A.Guitar 1,E.Guitar 1,Heavy EG 1,E.Organ 1 ,E.Organ 3 ,E.Organ 5
+E.Organ 7 ,E.Oragn 9 ,R.Organ 2 ,Strings 1 ,Strings 3 ,Strings P2,JP.Strings,Choir 1
+Choir 3   ,Syn.Vox 1 ,Syn.Vox 2 ,Syn.Chior ,Syn.Chior2,Slap 1    ,Slap 7    ,Fingerd 1
+Picked 1  ,Fretless 2,A.Bass    ,Syn.Bass 4,Syn.Bass 5,Syn.Bass 6,Syn.Bass 7,Soft TP 1
+TP/TRB 1  ,Brass 1   ,Sax 1     ,Synth Brs1,Synth Brs2,Power Brs1,Power Brs2,JP.Brass 2
+Flute 1   ,Shaku 1   ,Bell Pad  ,Breath Vox,Pizzagogo ,Spect Bell,Bell Drum ,Syn.Harp
+PulseWave1,PulseWave2,PulseWave3,Saw Wave 1,Saw Wave 2,Metal     ,Sing Piano,Syn.Marimb
+Fantasia  ,Calliope 1,Calliope 2,Sound trk1,Sound trk2,Sound trk3,Atmsphere1,Atmsphere2
+Future 1  ,Future 2  ,Pomona 1  ,Pomona 2  ,Melodigan1,Melodigan2,Photogene1,Photogene2
+Endymion 1,Endymion 2,Prelision1,Prelision2,JP8.Brass ,Jp8.String,Selene 1  ,Selene 2
+Sacred 1  ,Sacred 2  ,Macho 1   ,Macho 2   ,Lunar 1   ,Lunar 2   ,Harmonic 1,Harmonic 2
+Harmonic 3,Native 1  ,Native 2  ,Native 3  ,Native 4  ,Native 5  ,Percs Hit1,Percs Hit2
+Percs Hit3,Rotor 1   ,Rotor 2   ,Rotor 3   ,Emergency1,Emergency2,Emergency3,Emergency4
+Emergency5,Deep 1    ,Deep 2    ,Deep 3    ,Catastrp 1,Catastrp 2,Catastrp 3,Catastrp 4
+Catastrp 5,Pizz      ,Breath    ,Nails     ,Spectrum 1,Spectrum 2,N.Dance   ,Drums
+*--------------------------------------------------------------------------------------
+#defoff
+
+#part=7,Roland GS format,   GS:		* GS formatの音色リスト(bank0～127/prog.0～127)
+*--------------------------------------------------------------------------------------
+* Roland GS format sound list for SC-55			* 1994-05-17 by TURBO
+*
+*--------------------------------------------------
+Piano 1     ,Piano 2     ,Piano 3     ,Honky-tonk
+E.Piano 1   ,E.Piano 2   ,Harpsichord ,Clav.
+Celesta     ,Glockenspiel,Music Box   ,Vibraphone
+Marimba     ,Xylophone   ,Tubular-bell,Santur
+Organ 1     ,Organ 2     ,Organ 3     ,Church Org.1
+Reed Organ  ,Accordion Fr,Harmonica   ,Bandneon
+Nylon-str.Gt,Steel-str.Gt,Jazz Gt.    ,Clean Gt.
+Muted Gt.   ,Overdrive Gt,DistortionGt,Gt.Harmonics
+Acoustic Bs.,Fingered Bs.,Picked Bs.  ,Fretless Bs.
+Slap Bass 1 ,Slap Bass 2 ,Synth Bass 1,Synth Bass 2
+Violin      ,Viola       ,Cello       ,Contrabass
+Tremolo Str ,PizzicatoStr,Harp        ,Timpani
+Strings     ,Slow Strings,Syn.Strings1,Syn.Strings2
+Choir Aahs  ,Voice Oohs  ,SynVox      ,OrchestraHit
+Trumpet     ,Trombone    ,Tuba        ,MutedTrumpet
+French Horn ,Brass 1     ,Synth Brass1,Synth Brass2
+Soprano Sax ,Alto Sax    ,Tenor Sax   ,Baritone Sax
+Oboe        ,English Horn,Bassoon     ,Clarinet
+Piccolo     ,Flute       ,Recorder    ,Pan Flute
+Bottle Blow ,Shakuhachi  ,Whistle     ,Ocarina
+Square Wave ,Saw Wave    ,Syn.Calliope,Chiffer Lead
+Charang     ,Solo Vox    ,5th Saw Wave,Bass & Lead
+Fantasia    ,Warm Pad    ,Polysynth   ,Space Voice
+Bowed Glass ,Metal Pad   ,Halo Pad    ,Sweep Pad
+Ice Rain    ,Soundtrack  ,Crystal     ,Atmosphere
+Brightness  ,Goblin      ,Echo Drops  ,Star Theme
+Sitar       ,Banjo       ,Shamisen    ,Koto
+Kalimba     ,Bag Pipe    ,Fiddle      ,Shanai
+Tinkle Bell ,Agogo       ,Steel Drums ,Woodblock
+Taiko       ,Melo. Tom 1 ,Synth Drum  ,Reverse Cym.
+Gt.FretNoise,Breath Noise,Seashore    ,Bird
+Telephone 1 ,Helicopter  ,Applause    ,Gun Shot
+*--------------------------------------------------
+#defoff
+
+#part=8,Roland GS drums , GSds:		* GS drums のリズムセットリスト(prog.0～127)
+*--------------------------------------------------------------------------------------
+* Roland GS drums sound list for SC-55			* 1991-12-21 by Ext
+*
+STANDARD  ,          ,          ,          ,          ,          ,          ,
+ROOM      ,          ,          ,          ,          ,          ,          ,
+POWER     ,          ,          ,          ,          ,          ,          ,
+ELECTRONIC,TR-808    ,          ,          ,          ,          ,          ,
+JAZZ      ,          ,          ,          ,          ,          ,          ,
+BRUSH     ,          ,          ,          ,          ,          ,          ,
+ORCHESTRA ,          ,          ,          ,          ,          ,          ,
+SFX       ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,
+          ,          ,          ,          ,          ,          ,          ,CM-64/32L
+*--------------------------------------------------------------------------------------
+#defoff
+
+#end
+
+*--------------------------------------------------------------------------------------
+* cm64.def : end of file
+*--------------------------------------------------------------------------------------
+

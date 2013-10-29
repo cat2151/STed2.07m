@@ -1,0 +1,77 @@
+#
+#	makefile for STed v2.07 by TURBO 1996-11-17
+#	                       1998-04-29 by BOMBER
+#
+
+#SHELL	= command.x
+
+CC	= gcc
+AS	= has
+LD	= hlk
+HAS     = -m68000
+
+indirect	has -i
+indirect	hlk -i
+
+CFLAGS	= -Wall -O -fomit-frame-pointer -fstrength-reduce -fcombine-regs \
+	  -fforce-mem -cc1-stack=160000
+
+LDFLAGS	= -l -d_HEAP_SIZE=6000 -d_STACK_SIZE=c000
+
+LDLIBS	= lib/etclib.l iocslib.l doslib.l clib.l baslib.l floatfnc.l gnulib.l
+
+OBJECTS	= sted.o trkset.o track.o mcpy.o edit.o edits.o redit.o select.o assign.o exclu.o \
+	  cm6con.o file.o defload.o score.o visual.o disp.o record.o key_sub.o graphic.o \
+	  ongraph.o hprint.o graph.o mkeyb.o scdsp.o #krepeat.o
+
+UPFILES	= STed2.doc STed2.man STed2.his STed2.hed STed2.x STed2.hlp STed2.fon STed2.cnf \
+	  STed2def.doc STdef.x cm64.def sc55.def sc55mk2.def sc88.def
+
+VERSION	= 207
+
+all: STed2.x STdef.x
+
+STed2.x: $(OBJECTS)
+	@$(LD) $(LDFLAGS) $^ $(LDLIBS) -o $@
+
+STdef.x: stdef.o deffile.o
+	@$(LD) $(LDFLAGS) $^ $(LDLIBS) -o $@
+
+sted.o: sted.c sted.h
+	$(CC) $(CFLAGS) -c -fforce-addr $<
+trkset.o: trkset.c sted.h
+
+edit.o: edit.c sted.h
+	$(CC) $(CFLAGS) -c -fforce-addr $<
+
+edits.o: edits.c sted.h
+redit.o: redit.c sted.h
+track.o: track.c sted.h
+select.o: select.c sted.h
+assign.o: assign.c sted.h
+mkeyb.o: mkeyb.c sted.h
+exclu.o: exclu.c sted.h
+cm6con.o: cm6con.c sted.h
+file.o: file.c sted.h
+defload.o: defload.c sted.h
+	$(CC) $(CFLAGS) -c $< -DSTED
+
+deffile.o: defload.c sted.h
+	$(CC) $(CFLAGS) -c $< -DCONV -odeffile.o
+
+disp.o: disp.c sted.h
+score.o: score.c sted.h
+visual.o: visual.c sted.h
+record.o: record.c sted.h
+key_sub.o: key_sub.c sted.h
+graphic.o: graphic.c sted.h
+ongraph.o: ongraph.s
+hprint.o: hprint.s
+krepeat.o: krepeat.s
+graph.o: graph.s
+mcpy.o: mcpy.s
+scdsp.o: scdsp.s
+
+stdef.o: stdef.c sted.h
+
+
